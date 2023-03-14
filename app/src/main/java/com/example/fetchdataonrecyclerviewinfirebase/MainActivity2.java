@@ -21,10 +21,18 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(binding.getRoot());
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         binding.recyclerview.setLayoutManager(layoutManager);
-        Query query= FirebaseDatabase.getInstance().getReference().child("Student");
+
+        Query query= FirebaseDatabase.getInstance().getReference().child("Student")
+                .orderByChild("Name").equalTo("zahra");
+
+        Query query2= FirebaseDatabase.getInstance().getReference().child("Student")
+                .orderByChild("Name").startAt("a").endAt("a\uf8ff");
+
+
         FirebaseRecyclerOptions<ModelClass> options= new FirebaseRecyclerOptions.Builder<ModelClass>()
-                .setQuery(query,ModelClass.class)
+                .setQuery(query2,ModelClass.class)
                 .build();
+
         adapter=new AdapterClass(options);
         binding.recyclerview.setAdapter(adapter);
 
